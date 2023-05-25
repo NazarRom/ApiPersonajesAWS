@@ -2,8 +2,18 @@ using ApiPersonajesAWS.Data;
 using ApiPersonajesAWS.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("*");
+                      });
+});
 
 // Add services to the container.
 string connectionString = builder.Configuration.GetConnectionString("MySql");
@@ -37,6 +47,8 @@ app.UseSwaggerUI(
 //}
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 

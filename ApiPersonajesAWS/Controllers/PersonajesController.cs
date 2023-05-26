@@ -28,7 +28,7 @@ namespace ApiPersonajesAWS.Controllers
             return await this.repo.FindPersonajeAsync(id);
         }
         [HttpPost]
-        public async Task<IActionResult> InsertPersonaje(Personaje personaje)
+        public async Task<ActionResult> InsertPersonaje(Personaje personaje)
         {
             await this.repo.InsertPersonajeAsync(personaje.IdPersonaje, personaje.Nombre, personaje.Imagen);
             return Ok();
